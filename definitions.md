@@ -10,10 +10,13 @@ On choisi SQLite, c'est petit, léger et embarqué, ça semble plus adapté au p
     - id : identifiat unique
     - title : titre
     - description : description
+    - type : type de fichier (pdf, html, image, docx/odt ?, other)
     - date : date d'ajout
     - submiter : login de l'utilisateur ayant soumis le document
     - ? thumnail : chemin vers une miniature
     - path : chemin vers le fichier lui meme
+
+A discuter :
 
 - Tag
     - id : identifiant unique
@@ -31,7 +34,7 @@ On choisi SQLite, c'est petit, léger et embarqué, ça semble plus adapté au p
 # Features
 
 ## Coté utilisateur
-- Parcours des fichiers dès qu'il ouvre un navigateur
+- Parcours des fichiers sur la page d'acceuil
 - recherche / tri par mot clé
 - ? recherche dans le titre
 - ? recherche dans la description
