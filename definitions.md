@@ -38,6 +38,8 @@ A discuter :
 - recherche / tri par mot clé
 - ? recherche dans le titre
 - ? recherche dans la description
+- ? noter les documents (etoiles, +1 -1 ?)
+- ? dire que le service est cool (bouton +1 dans un coin)
 
 ## Coté administrateur
 - connexion sécurisé
