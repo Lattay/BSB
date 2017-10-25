@@ -1,0 +1,23 @@
+{
+  "name": "bsb",
+  "version": "0.0.1",
+  "description": "Node web app to spill documents in a local network",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lattay/BSB.git"
+  },
+  "author": "Théo (Lattay)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Lattay/BSB/issues"
+  },
+  "homepage": "https://github.com/Lattay/BSB#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "sqlite3": "^3.1.13"
+  }
+}
