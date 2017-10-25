@@ -4,7 +4,7 @@
 
 const bcrypt = require('bcrypt');
 
-module.exports = function(context){
+module.exports = (function(){
 
     var crypto = new Object();
     
@@ -18,6 +18,5 @@ module.exports = function(context){
         bcrypt.compare(password, hash, callback);
     };
 
-    context.crypto = crypto;
     return crypto;
-};
+})();

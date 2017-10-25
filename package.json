@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Lattay/BSB#readme",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "express": "^4.16.2",
     "sqlite3": "^3.1.13"
   }
