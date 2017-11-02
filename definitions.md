@@ -43,6 +43,6 @@ A discuter :
 
 ## Coté administrateur
 - connexion sécurisé
-- ajout / suppression de documents
-- ajout / suppression de tags
+- ajout, modification, suppression de documents
+- ajout, suppression de tags
 
