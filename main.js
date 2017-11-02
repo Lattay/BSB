@@ -1,10 +1,10 @@
 // Bit Spilling Box
-const context = require('primary/context')('bsb.json');
+const context = require('./primary/context')('bsb.json');
 
-context.log = require('primary/logger')(context);
-context.database = require('primary/shortersql')(context);
+context.log = require('./primary/logger')(context);
+context.database = require('./primary/database')(context);
 
-require('primary/bsb')(context);
+require('./primary/bsb')(context);
 
 process.on('SIGINT', function(){
     context.log.warning('sigint received.');

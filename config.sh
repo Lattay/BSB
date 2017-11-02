@@ -18,11 +18,21 @@ ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
 npm install --build-from-source
 
 # Génération de la configuration
-cat <<EOF | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@LPORT?$LPORT?" > $ROOT_PATH/myecl_config.json
+cat <<EOF | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@LPORT?$LPORT?" > $ROOT_PATH/bsb.json
 {
     "port" : @LPORT,
     "url" : "@LURL",
-    "root_path" : "@ROOT_PATH"
+    "root_path" : "@ROOT_PATH",
+    "database" : "bsb.sqlite",
+    "default_static_options" : {
+        "index" : false,
+        "redirect" : false
+    },
+    "session_config" : {
+        "secret" : "14feab574fcec7ddf15935e7bd19c12345aa5c6b80fe44b1ef344d8e14645ec5",
+        "resave" : false,
+        "saveUninitialized" : true
+    }
 }
 EOF
 
