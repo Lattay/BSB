@@ -13,18 +13,10 @@ On choisi SQLite, c'est petit, léger et embarqué, ça semble plus adapté au p
     - type : type de fichier (pdf, html, image, docx/odt ?, other)
     - date : date d'ajout
     - submiter : login de l'utilisateur ayant soumis le document
-    - ? thumnail : chemin vers une miniature
+    - thumnail : chemin vers une miniature
     - path : chemin vers le fichier lui meme
 
 A discuter :
-
-- Tag
-    - id : identifiant unique
-    - tag : nom du tag / mot clé
-
-- Tagged
-    - idT : identifiant d'un tag
-    - idD : identifiant d'un document
 
 - User
     - login : login d'un utilisateur admin
@@ -35,11 +27,6 @@ A discuter :
 
 ## Coté utilisateur
 - Parcours des fichiers sur la page d'acceuil
-- recherche / tri par mot clé
-- ? recherche dans le titre
-- ? recherche dans la description
-- ? noter les documents (etoiles, +1 -1 ?)
-- ? dire que le service est cool (bouton +1 dans un coin)
 
 ## Coté administrateur
 - connexion sécurisé
