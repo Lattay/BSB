@@ -10,7 +10,7 @@ On choisi SQLite, c'est petit, léger et embarqué, ça semble plus adapté au p
     - id : identifiat unique
     - title : titre
     - description : description
-    - type : type de fichier (pdf, html, image, docx/odt ?, other)
+    - type : type de fichier (pdf, html, image, video, audio)
     - date : date d'ajout
     - submiter : login de l'utilisateur ayant soumis le document
     - thumnail : chemin vers une miniature
