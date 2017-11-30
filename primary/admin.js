@@ -26,8 +26,46 @@ module.exports = function(context){
         });
     };
 
-    admin.add = 0;
-    admin.remove = 0;
-    admin.modify = 0;
+    admin.add = function(req, res){
+        var data = req.body;
+        data.doc = req.files['document'][0];
+        data.thumb = req.files['thumbnails'][0];
+
+        context.database.addDoc(data, function(err){
+            if(err){
+                context.log.error(err);
+                res.send('err');
+            } else {
+                res.send('ok');
+            }
+        });
+    };
+
+    admin.remove = function(req, res){
+        var id = req.body['id'];
+        context.database.delDoc(id, function(err){
+            if(err){
+                context.log.error(err);
+                res.send('err');
+            } else {
+                res.send('ok');
+            }
+        });
+    };
+
+    admin.modify = function(req, res){
+        // modifie les informations ou la miniature (pas le document lui même)
+        var data = req.body;
+        data.doc = req.files['thumbnails'][0];
+        context.database.modDoc(data, function(err){
+            if(err){
+                context.log.error(err);
+                res.send('err');
+            } else {
+                res.send('ok');
+            }
+        });
+    };
+
     return admin;
 };

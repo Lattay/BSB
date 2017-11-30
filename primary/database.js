@@ -10,12 +10,26 @@ module.exports = function(context){
     var db = new Object();
     var base_db = new sql.Database(context.database_path);
 
-    db.getTags = function(callback){
-        base_db.all('SELECT name FROM tag;', callback);
+
+    db.getDoc = function(id, callback){
+        // Recupere un document par son id
     };
 
-    db.getDocuments = function(callback){
+    db.getDocList = function(callback){
+        // Liste tout les documents
         base_db.all('SELECT * FROM documents;', callback);
+    };
+
+    db.addDoc = function(data, callback){
+        // Ajoute un document a la bdd
+    };
+
+    db.delDoc = function(id, callback){
+        // Retire un document de la bdd
+    };
+
+    db.modDoc = function(data, callback){
+        // Modifie un document existent
     };
 
     db.checkPassword = function(password, callback){

@@ -8,7 +8,7 @@ require('./primary/bsb')(context);
 
 process.on('SIGINT', function(){
     context.log.warning('sigint received.');
-    context.database.close()
+    context.database.close();
     process.exit();
 });
 
@@ -18,6 +18,6 @@ process.on('uncaughtException', function(err){
     } else {
         context.log.error(err);
     }
-    context.database.close()
+    context.database.close();
     process.exit();
 });
