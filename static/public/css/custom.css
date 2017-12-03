@@ -4,3 +4,9 @@ body {
 .jumbotron {
     background : #c3c3c3;
 }
+
+.thumb {
+    max-height: 200px;
+    padding : 10px;
+    margin : 10px;
+}
