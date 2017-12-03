@@ -1,6 +1,8 @@
 /* admin.js
  * Définie les callback utilisé pour les actions d'administration
  */
+const fs = require('fs');
+
 module.exports = function(context){
     var admin = new Object();
 
@@ -29,6 +31,10 @@ module.exports = function(context){
     admin.add = function(req, res){
         var data = req.body;
         data.doc = req.files['document'][0];
+        if(!data.doc){
+            res.send('nofile');
+            return;
+        }
         data.thumb = req.files['thumbnails'][0];
 
         context.database.addDoc(data, function(err){
@@ -43,13 +49,17 @@ module.exports = function(context){
 
     admin.remove = function(req, res){
         var id = req.body['id'];
-        context.database.delDoc(id, function(err){
-            if(err){
-                context.log.error(err);
-                res.send('err');
-            } else {
-                res.send('ok');
-            }
+        context.database.getDoc(id, function(row){
+            fs.unlink(row.path);  // on supprime les fichiers associé au document
+            fs.unlink(row.thumbnail);
+            context.database.delDoc(id, function(err){
+                if(err){
+                    context.log.error(err);
+                    res.send('err');
+                } else {
+                    res.send('ok');
+                }
+            });
         });
     };
 
@@ -62,6 +72,9 @@ module.exports = function(context){
                 context.log.error(err);
                 res.send('err');
             } else {
+                if(data.thumb){ // si on met à jour une miniature on supprime l'ancienne
+                    fs.unlink(data.old_thumb);
+                }
                 res.send('ok');
             }
         });

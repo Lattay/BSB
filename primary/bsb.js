@@ -29,9 +29,9 @@ module.exports = function(ctx){
     const admin = require('./admin')(ctx);
     app.get('/admin/login', admin.login);
 
-    app.post('/add', body_parser, admin.authorise('/login.html'), admin.add);
-    app.post('/rm', body_parser, admin.authorise('/login.html'), admin.remove);
-    app.post('/mod', body_parser, admin.authorise('/login.html'), admin.modify);
+    app.post('/admin/add', body_parser, admin.authorise('/login.html'), admin.add);
+    app.post('/admin/rm', body_parser, admin.authorise('/login.html'), admin.remove);
+    app.post('/admin/mod', body_parser, admin.authorise('/login.html'), admin.modify);
 
 
     app.use(admin.authorise('/login.html'), serveStatic(ctx.private_root, ctx.default_static_options));

@@ -17,6 +17,12 @@ ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
 # Mise à jour des modules node.js
 npm install --build-from-source
 
+ask "Initialiser la base de données ? [o/N]" "N" INIT_DB
+if [[ $INIT_DB != "O" -a $INIT_DB != "o" ]]
+then
+    sqlite bsb.sqlite < init_db.sql
+fi
+
 # Génération de la configuration
 cat <<EOF | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@LPORT?$LPORT?" > $ROOT_PATH/bsb.json
 {
