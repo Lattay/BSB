@@ -29,6 +29,11 @@ module.exports = function(context){
         });
     };
 
+    admin.logout = function(req, res){
+        req.session.logged = false;
+        res.redirect('/');
+    };
+
     admin.login_list = function(req, res){
         context.database.getLogins(function(err, logins){
             if(err){
@@ -46,13 +51,13 @@ module.exports = function(context){
                 context.log.error(err);
                 res.status(500).send('Error adding a login.');
             } else {
-                res.send('OK');
+                res.redirect('/admin');
             }
         });
     };
 
     admin.del_login = function(req, res){
-        context.database.delPassword(req.params.i, function(err){
+        context.database.delPassword(req.params['id'], function(err){
             if(err){
                 context.log.error(err);
                 res.status(500).send('Error when deleting a login.');

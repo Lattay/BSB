@@ -11,17 +11,22 @@ body {
 .btn {
     background : #aa0d3a;
     color : #ffffff;
+    margin : 5px;
+}
+
+.btn-left {
+    position : fixed;
+    right : 10%;
 }
 
 .big-thumb {
-    max-height: 300px;
+    max-height : 300px;
+    max-width : 100%;
     padding : 10px;
     margin : 10px;
 }
 
-.thumb {
-    max-height: 200px;
-    padding : 10px;
+.row-btn {
     margin : 10px;
 }
 
@@ -37,6 +42,7 @@ body {
 }
 
 .footer {
+    max-height : 15%;
     margin : 30px 0 0 0;
     position : fixed;
     bottom : 0;

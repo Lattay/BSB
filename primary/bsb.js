@@ -57,8 +57,13 @@ module.exports = function(ctx){
     const admin = require('./admin')(ctx);
 
     app.post('/admin/login', body_parser, admin.login);
+    app.get('/admin/logout', admin.logout);
 
     app.get('/admin/logins', admin.authorise('/login.html'), admin.login_list);
+
+    app.post('/admin/create_pass', body_parser, admin.authorise('/login.html'), admin.add_login);
+
+    app.delete('/admin/del_pass/:id', admin.authorise('/login.html'), admin.del_login);
 
     app.delete('/admin/rm/:id', admin.authorise('/login.html'), admin.remove);
     app.post('/admin/add', body_parser, admin.authorise('/login.html'), admin.add);

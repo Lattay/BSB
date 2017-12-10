@@ -15,12 +15,21 @@
 </div>
   
 <div class="container">
-  <% for(let i in logins){ %>
-    <div class="row" id="login_<%= logins[i].id %>">
-        <p><%= logins[i].login %> <button class="btn" onclick="delete(<%= logins[i].id %>)">Supprimer</button></p>
-    </div>
-  <% } %>
   <div class="row" id="first_row">
+    <h3>Utilisateurs existants</h3>
+    <div id=list>
+        <% for(let i in logins){ %>
+          <div class="login" id="login_<%= logins[i].id %>" style="margin-bottom : 10px">
+            <p>
+              <span style="margin-left : 10px"><%= logins[i].login %></span>
+              <button class="btn btn-xs btn-left" onclick="del(<%= logins[i].id %>)">Supprimer</button>
+            </p>
+          </div>
+        <% } %>
+    </div>
+  </div>
+  <div class="row" id="second_row">
+    <h3>Ajouter un utilisateur</h3>
     <form action="/admin/create_pass" method=POST enctype="multipart/form-data">
       <div class="form-group">
         <label for="usr">Nom d'utilisateur</label>
@@ -49,4 +58,11 @@
     </div>
   </div>
 </body>
+<script src="/js/jquery.js"></script>
+<script>
+    function del(id){
+        $.ajax('/admin/del_pass/' + id.toString(), {'method' : 'DELETE'});
+        $('#login_' + id.toString()).remove();
+    }
+</script>
 </html>

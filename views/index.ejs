@@ -16,17 +16,27 @@
   
 <div class="container">
   <% if(admin){ %>
-    <a href="/admin/document/new" class="btn">Ajouter un document</a>
+    <div class="row row-btn" id="button_row">
+      <div class="col-sm-4 item">
+        <a href="/admin/document/new" class="btn">Ajouter un document</a>
+      </div>
+      <div class="col-sm-4 item">
+        <a href="/admin/logins" class="btn">Liste des utilisateurs</a>
+      </div>
+      <div class="col-sm-4 item">
+        <a href="/admin/logout" class="btn">Se déconnecter</a>
+      </div>
+    </div>
   <% } %>
   <div class="row" id="main_row">
     <% for(var i in rows){%>
-      <div id="item_<%= rows[i].id %>" class="col-sm-3 item">
+      <div id="item_<%= rows[i].id %>" class="col-sm-3 text-center vertical-center">
         <% if(admin){ %>
           <a href="/admin/document/<%= rows[i].id %>">
         <% } else { %>
           <a href="/document/<%= rows[i].id %>">
         <% } %>
-            <img class="thumb img-rounded" src="<%= rows[i].thumbnail %>"></img>
+            <img class="img-rounded img-responsive center-block" src="<%= rows[i].thumbnail %>"></img>
             <div class="well">
               <%= rows[i].title %>
             </div>
@@ -36,7 +46,6 @@
         <% } %>
       </div>
     <% } %>
-
   </div>
 </div>
 
@@ -58,8 +67,8 @@
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script>
 function del(id){
-    jQuery.ajax('/admin/rm/' + id.toString(), {'method' : 'DELETE'});
-    jQuery('item_' + id.toString()).remove();
+    $.ajax('/admin/rm/' + id.toString(), {'method' : 'DELETE'});
+    $('#item_' + id.toString()).remove();
 }
 </script>
 <% } %>

@@ -22,9 +22,12 @@
           <label for="doc">Choisir un fichier</label>
           <input class="form-control" id="doc" name="document" type="file"></input>
         </div>
+      <%} else {%>
+        <input name="id" type="text" value="<%= id %>" hidden/>
       <%}%>
+
       <div class="col-sm-6">
-        <img class="big-thumb" src="<%= thumbnail %>">
+        <img class="img-responsive" src="<%= thumbnail %>">
         </img>
           <div class="form-group">
             <label for="doc">Choisir une autre miniature</label>
