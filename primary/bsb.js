@@ -75,7 +75,7 @@ module.exports = function(ctx){
         });
     });
 
-    app.get('/admin/document/:id', function(req, res){
+    app.get('/admin/document/:id', admin.authorise('/login.html'), function(req, res){
         // Affiche la page de modification d'un document
         if(req.params.id == 'new'){
             res.render('admin_document', {
