@@ -86,7 +86,10 @@ module.exports = function(context){
     admin.remove = function(req, res){
         var id = req.params['id'];
         context.database.getDoc(id, function(err, row){
-            if(!row){
+            if(err){
+                context.log.error(err);
+                res.status(500).send('Une erreur est survenue.');
+            } else if(!row){
                 context.log.error('Specified document does not exist. id : ' + id.toString() );
                 res.status(404).send('Aucun document a supprimer.');
             } else {
@@ -109,7 +112,7 @@ module.exports = function(context){
     admin.modify = function(req, res){
         // modifie les informations ou la miniature (pas le document lui même)
         var data = req.body;
-        data.thumb = req.files['thumbnails'] && req.files['thumbnails'][0] ? myUtils.path_to_url(req.files['thumbnails'][0].path) : data.old_thumb;
+        data.thumb = req.files['thumbnail'] && req.files['thumbnail'][0] ? myUtils.path_to_url(req.files['thumbnail'][0].path) : data.old_thumb;
         context.database.modDoc(data, function(err){
             if(err){
                 context.log.error(err);

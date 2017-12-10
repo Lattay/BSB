@@ -1,3 +1,5 @@
+const path = require('path');
+const crypto = require('crypto');
 const express = require('express');
 const serveStatic = require('serve-static');
 const session = require('express-session');
@@ -28,6 +30,8 @@ module.exports = function(ctx){
         ctx.database.getDoc(req.params.id, function(err, doc){
             if(err){
                 res.status(500).send('Internal Error');
+            } else if(!doc){
+                res.status(404).send('Aucun document trouvé.');
             } else {
                 res.render('document', doc);
             }
@@ -35,7 +39,21 @@ module.exports = function(ctx){
     });
 
     // Partie privée
-    const body_parser = multer(ctx.upload_conf).fields([{ 'name' : 'thumbnail', 'maxCount' : 1}, { 'name' : 'document', 'maxCount' : 1}]);
+
+    // Préparation de multer
+    var storage = multer.diskStorage({
+        'destination' : ctx.upload_path,
+        'filename' : function(req, file, cb){
+            crypto.pseudoRandomBytes(16, function(err, raw){
+                if(err){
+                    cb(err);
+                } else {
+                    cb(null, raw.toString('hex') + path.extname(file.originalname));
+                }
+            });
+        }
+    });
+    const body_parser = multer({'storage' : storage}).fields([{ 'name' : 'thumbnail', 'maxCount' : 1}, { 'name' : 'document', 'maxCount' : 1}]);
     const admin = require('./admin')(ctx);
 
     app.post('/admin/login', body_parser, admin.login);
@@ -71,7 +89,9 @@ module.exports = function(ctx){
         } else {
             ctx.database.getDoc(req.params.id, function(err, doc){
                 if(err){
-                    res.status(500).send('Internal Error');
+                    res.status(500).send('Une erreur est survenue.');
+                } else if(!doc){
+                    res.status(404).send('Aucun document trouvé.');
                 } else {
                     doc.new_doc = false;
                     res.render('admin_document', doc);

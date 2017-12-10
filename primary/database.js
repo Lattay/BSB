@@ -6,7 +6,7 @@ const sql = require('sqlite3');
 
 module.exports = function(context){
     
-    const crypto = require('./crypto');
+    const crypto_utils = require('./crypto_utils');
     var db = new Object();
     var base_db = new sql.Database(context.database_path);
 
@@ -80,7 +80,7 @@ module.exports = function(context){
             if(err){
                 callback(false);
             } else {
-                crypto.compare(password, row['hash'], function(err, result){
+                crypto_utils.compare(password, row['hash'], function(err, result){
                     if(err){
                         callback(false);
                     } else {
@@ -92,7 +92,7 @@ module.exports = function(context){
     };
 
     db.setPassword = function(login, password, callback){
-        crypto.hash(password, function(err, hash){
+        crypto_utils.hash(password, function(err, hash){
             if(err){
                 callback(err);
             } else {

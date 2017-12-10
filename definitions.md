@@ -3,10 +3,12 @@
 ## Techno
 
 On choisi SQLite, c'est petit, léger et embarqué, ça semble plus adapté au projet que MySQL/MariaDB.
+On choisi également d'utiliser ejs pour construire les pages. En effet le petit nombre de pages se prette bien
+à son utilisation.
 
 ## Structure des tables
 
-- Document
+- documents
     - id : identifiat unique
     - title : titre
     - description : description
@@ -15,6 +17,9 @@ On choisi SQLite, c'est petit, léger et embarqué, ça semble plus adapté au p
     - thumbnail : chemin vers une miniature
     - path : chemin vers le fichier lui meme
 
+- password
+    - login : identifiant unique, nom d'utilisateur
+    - hash : représentation hashé du mot de passe
 # Features
 
 ## Coté utilisateur
@@ -23,5 +28,5 @@ On choisi SQLite, c'est petit, léger et embarqué, ça semble plus adapté au p
 ## Coté administrateur
 - connexion sécurisé
 - ajout, modification, suppression de documents
-- ajout, suppression de tags
+- ajout, suppression de logins/mot de passe
 
