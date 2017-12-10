@@ -5,4 +5,8 @@ context.log = require('./primary/logger')(context);
 context.database = require('./primary/database')(context);
 
 
-context.database.setPassword('init', 'password');
+context.database.setPassword('init', 'password', function(err){
+    if(err){
+        context.log.error(err);
+    }
+});

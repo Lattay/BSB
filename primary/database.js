@@ -37,36 +37,36 @@ module.exports = function(context){
             'thumbnail,' +
             'path' +
             ') VALUES (?, ?, ?, ?, ?, ?);';
-        base_db.exec(req, [
+        base_db.run(req, [
             data.title,
             data.type,
             data.description,
             data.date,
-            data.thumb ? data.thumb.path : context.no_thumb_path,
-            data.doc.path
+            data.thumb,
+            data.doc
         ], callback);
     };
 
     // callback = function(error)
     db.delDoc = function(id, callback){
         // Retire un document de la bdd
-        base_db.exec('DELETE FROM documents WHERE id = ?', [id], callback);
+        base_db.run('DELETE FROM documents WHERE id = ?', [id], callback);
     };
 
     // callback = function(error)
     db.modDoc = function(data, callback){
         // Modifie un document existent
-        var req = 'UPDATE documents ' +
-            'title = ?,' +
-            'type = ?,' +
-            'description = ?,' +
-            'thumbnail = ?,' +
+        var req = 'UPDATE documents SET ' +
+            'title = ?, ' +
+            'type = ?, ' +
+            'description = ?, ' +
+            'thumbnail = ? ' +
             'WHERE id = ?;';
-        base_db.exec(req, [
+        base_db.run(req, [
             data.title,
             data.type,
             data.description,
-            data.thumb ? data.thumb.path : data.old_thumb,
+            data.thumb,
             data.id
         ], callback);
     };
@@ -96,7 +96,7 @@ module.exports = function(context){
             if(err){
                 callback(err);
             } else {
-                base_db.exec('INSERT INTO password (login, hash) VALUES (?, ?);', [login, hash], function(err){
+                base_db.run('INSERT INTO password (login, hash) VALUES (?, ?);', [login, hash], function(err){
                     callback(err);
                 });
             }
@@ -104,7 +104,7 @@ module.exports = function(context){
     };
 
     db.delPassword = function(id, callback){
-        base_db.exec('DELETE FROM password WHERE id = ?;', [id], callback);
+        base_db.run('DELETE FROM password WHERE id = ?;', id, callback);
     };
 
     return db;

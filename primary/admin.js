@@ -4,8 +4,9 @@
 const fs = require('fs');
 
 module.exports = function(context){
-    var admin = new Object();
+    const myUtils= require('./utils')(context);
 
+    var admin = new Object();
     admin.authorise = function(route_ko){
         var cb = function(req, res, next){
             if(req.session.logged){
@@ -63,15 +64,15 @@ module.exports = function(context){
 
     admin.add = function(req, res){
         var data = req.body;
-        data.doc = req.files['document'][0];
-        if(!data.doc){
+        if(!req.files['document'][0]){
             res.send('nofile');
             return;
         }
-        data.thumb = req.files['thumbnail'][0];
+        data.doc = myUtils.path_to_url(req.files['document'][0].path);
+        data.thumb = req.files['thumbnail'][0] ? myUtils.path_to_url(req.files['thumbnail'][0].path) : context.no_thumb;
 
         var d = new Date();
-        data.date = d.getDay().toString() + '/' + d.getMonth().toString() + '/' + d.getYear().toString();
+        data.date = d.getDate().toString() + '/' + (d.getMonth() + 1).toString() + '/' + d.getFullYear().toString();
         context.database.addDoc(data, function(err){
             if(err){
                 context.log.error(err);
@@ -84,31 +85,38 @@ module.exports = function(context){
 
     admin.remove = function(req, res){
         var id = req.params['id'];
-        context.database.getDoc(id, function(row){
-            fs.unlink(row.path);  // on supprime les fichiers associé au document
-            fs.unlink(row.thumbnail);
-            context.database.delDoc(id, function(err){
-                if(err){
-                    context.log.error(err);
-                    res.status(500).send('Une erreur est survenue.');
-                } else {
-                    res.send('ok');
+        context.database.getDoc(id, function(err, row){
+            if(!row){
+                context.log.error('Specified document does not exist. id : ' + id.toString() );
+                res.status(404).send('Aucun document a supprimer.');
+            } else {
+                fs.unlink(myUtils.url_to_path(row.path));  // on supprime les fichiers associé au document
+                if(row.thumbnail){
+                    fs.unlink(myUtils.url_to_path(row.thumbnail));
                 }
-            });
+                context.database.delDoc(id, function(err){
+                    if(err){
+                        context.log.error(err);
+                        res.status(500).send('Une erreur est survenue.');
+                    } else {
+                        res.send('ok');
+                    }
+                });
+            }
         });
     };
 
     admin.modify = function(req, res){
         // modifie les informations ou la miniature (pas le document lui même)
         var data = req.body;
-        data.doc = req.files['thumbnails'][0];
+        data.thumb = req.files['thumbnails'] && req.files['thumbnails'][0] ? myUtils.path_to_url(req.files['thumbnails'][0].path) : data.old_thumb;
         context.database.modDoc(data, function(err){
             if(err){
                 context.log.error(err);
                 res.status(500).send('Une erreur est survenue.');
             } else {
-                if(data.thumb){ // si on met à jour une miniature on supprime l'ancienne
-                    fs.unlink(data.old_thumb);
+                if(data.thumb != data.old_thumb && data.old_thumb != context.no_thumb){ // si on met à jour une miniature on supprime l'ancienne
+                    fs.unlink(myUtils.url_to_path(data.old_thumb), () => {});
                 }
                 res.redirect('/admin');
             }

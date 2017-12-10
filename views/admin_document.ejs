@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <link rel="stylesheet" href="/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="/css/custom.css"/>
-  <script type="text/javascript" source="/js/index.js"></script>
 </head>
 <body>
 
@@ -17,8 +16,8 @@
   
 <div class="container">
   <div class="row" id="first_row">
-    <form action="<% if(new){%>/admin/add<%} else {%>/admin/mod<%}%>" method=POST enctype="multipart/form-data">
-      <% if(new){%>
+    <form action="<% if(new_doc){%>/admin/add<%} else {%>/admin/mod<%}%>" method=POST enctype="multipart/form-data">
+      <% if(new_doc){%>
         <div class="form-group">
           <label for="doc">Choisir un fichier</label>
           <input class="form-control" id="doc" name="document" type="file"></input>
@@ -44,7 +43,7 @@
         </div>
         <div class="form-group">
           <label for="desc">Description</label>
-          <textarea id="desc" name="description" class="form-control" value="<%=  description %>"></textarea>
+          <textarea id="desc" name="description" class="form-control"><%=  description %></textarea>
         </div>
       </div>
       <input type="submit" class="btn" value="Envoyer"></input>

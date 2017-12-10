@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <link rel="stylesheet" href="/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="/css/custom.css"/>
-  <script type="text/javascript" source="/js/index.js"></script>
 </head>
 <body>
 
@@ -33,7 +32,7 @@
             </div>
           </a>
         <% if(admin){ %>
-          <input type=button onclick="delete(<%= rows[i].id %>)" class="btn">Supprimer</input>
+        <input type=button onclick="del(<%= rows[i].id %>)" class="btn"value="Supprimer"></input>
         <% } %>
       </div>
     <% } %>
@@ -56,10 +55,11 @@
   </div>
 </body>
 <% if(admin){ %>
+<script type="text/javascript" src="/js/jquery.js"></script>
 <script>
-function delete(id){
-    $.ajax('/admin/rm/' + id.toString(), {'method' : 'DELETE'});
-    $('item_' + id.toString()).remove();
+function del(id){
+    jQuery.ajax('/admin/rm/' + id.toString(), {'method' : 'DELETE'});
+    jQuery('item_' + id.toString()).remove();
 }
 </script>
 <% } %>

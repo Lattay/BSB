@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <link rel="stylesheet" href="/css/bootstrap.min.css"/>
   <link rel="stylesheet" href="/css/custom.css"/>
-  <script type="text/javascript" source="/js/index.js"></script>
 </head>
 <body>
 
@@ -50,10 +49,4 @@
     </div>
   </div>
 </body>
-<script>
-funtion delete(id){
-    $.ajax('/admin/delete_login/' + id.toString(), {'method' : 'DELETE'});
-    $('login_' + id.toString()).remove();
-}
-</script>
 </html>

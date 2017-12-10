@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS documents;
 CREATE TABLE documents (
-    id ROWID,
+    id INTEGER PRIMARY KEY,
     title TEXT,
     description TEXT,
     type TEXT,
@@ -11,7 +11,7 @@ CREATE TABLE documents (
 
 DROP TABLE IF EXISTS password;
 CREATE TABLE password (
-    id ROWID,
+    id INTEGER PRIMARY KEY,
     login UNIQ,
-    password TEXT
+    hash TEXT
 );

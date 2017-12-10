@@ -61,10 +61,10 @@ module.exports = function(ctx){
         // Affiche la page de modification d'un document
         if(req.params.id == 'new'){
             res.render('admin_document', {
-                'new' : true,
+                'new_doc' : true,
                 'title' : '',
                 'type' : 'Livre',
-                'thumbnail' : '/static/public/pictures/no_thumb.png',
+                'thumbnail' : '/pictures/no_thumb.png',
                 'description' : '',
                 
             });
@@ -73,7 +73,7 @@ module.exports = function(ctx){
                 if(err){
                     res.status(500).send('Internal Error');
                 } else {
-                    doc.new = false;
+                    doc.new_doc = false;
                     res.render('admin_document', doc);
                 }
             });

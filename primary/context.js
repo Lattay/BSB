@@ -18,9 +18,7 @@ module.exports = function(config_file){
     ctx.views_path = path.join(ctx.root_path, '/views');
     ctx.database_path = path.join(ctx.root_path, ctx.database);
 
-    ctx.no_thumb_path = path.join(ctx.public_root, 'no_thumb.png');
-    
-    ctx.upload_conf = { 'dest' : path.join(ctx.root_path, '/static/public/uploads') };
+    ctx.upload_conf = { 'dest' : path.join(ctx.root_path, '/static/uploads') };
 
     return ctx;
 };
