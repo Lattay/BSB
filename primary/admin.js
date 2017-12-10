@@ -18,7 +18,7 @@ module.exports = function(context){
     };
  
     admin.login = function(req, res){
-        context.database.checkPassword(req.body.password, function(passok){
+        context.database.checkPassword(req.body.login, req.body.password, function(passok){
             if(passok){
                 req.session.logged = true;
                 res.send('ok');
@@ -35,8 +35,10 @@ module.exports = function(context){
             res.send('nofile');
             return;
         }
-        data.thumb = req.files['thumbnails'][0];
+        data.thumb = req.files['thumbnail'][0];
 
+        var d = new Date();
+        data.date = d.getDay().toString() + '/' + d.getMonth().toString() + '/' + d.getYear().toString();
         context.database.addDoc(data, function(err){
             if(err){
                 context.log.error(err);
@@ -48,7 +50,7 @@ module.exports = function(context){
     };
 
     admin.remove = function(req, res){
-        var id = req.body['id'];
+        var id = req.params['id'];
         context.database.getDoc(id, function(row){
             fs.unlink(row.path);  // on supprime les fichiers associé au document
             fs.unlink(row.thumbnail);

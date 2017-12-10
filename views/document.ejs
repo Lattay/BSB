@@ -18,17 +18,17 @@
 <div class="container">
   <div class="row" id="first_row">
     <div class="col-sm-6">
-        <img class="big-thumb" src="/thumbnails/alicia.jpg">
+        <img class="big-thumb" src="<%= thumbnails %>">
         </img>
     </div>
     <div class="col-sm-6">
-        <h3>Mon titre</h3><br/>
-        <p>Type de contenu : Album</p><br/>
-        <p>Date d'ajout : 11/16/17</p><br/>
-        <p>Description : Album de music electro pop d'une très jolie black</p><br/>
+        <h3><%= title %></h3><br/>
+        <p>Type de contenu : <%= type %></p><br/>
+        <p>Date d'ajout : <%= date %></p><br/>
+        <p>Description : <%=  description %></p><br/>
     </div>
   </div>
-  <a href="/thumbnails/alicia.jpg" download class="btn">Télécharger</a>
+  <a href="<%= path %>" download class="btn">Télécharger</button>
 </div>
 
 <div class="panel-footer footer text-center">

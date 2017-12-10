@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>Bit Spill Box</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="/css/custom.css"/>
+  <script type="text/javascript" source="/js/index.js"></script>
+</head>
+<body>
+
+<div class="text-center headbar bandeau">
+  <h1>Bit Spill Box</h1>
+  <p>Répandre l'information</p> 
+</div>
+  
+<div class="container">
+  <div class="row" id="first_row">
+    <form action="<% if(new){%>/admin/add<%} else {%>/admin/mod<%}%>" method=POST enctype="multipart/form-data">
+      <% if(new){%>
+        <div class="form-group">
+          <label for="doc">Choisir un fichier</label>
+          <input class="form-control" id="doc" name="document" type="file"></input>
+        </div>
+      <%}%>
+      <div class="col-sm-6">
+        <img class="big-thumb" src="<%= thumbnail %>">
+        </img>
+          <div class="form-group">
+            <label for="doc">Choisir une autre miniature</label>
+            <input class="form-control" id="doc" name="thumbnail" type="file"></input>
+          </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label for="title">Titre</label>
+          <input id="title" name="title" type="text" class="form-control" value="<%= title %>"></input>
+        </div>
+        <div class="form-group">
+          <label for="type">Type de contenu</label>
+          <input id="type" name="type" type="text" class="form-control" value="<%= type %>"></input>
+        </div>
+        <div class="form-group">
+          <label for="desc">Description</label>
+          <textarea id="desc" name="description" class="form-control" value="<%=  description %>"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="panel-footer footer text-center">
+  <div class="row" id="main_row">
+    <div class="col-sm-4">
+      <img src="/pictures/logo_ecl.png" style="width : 60%"/>
+    </div>
+    <div class="col-sm-4">
+      <img src="/pictures/logo_fl.png" style="width : 40%"/>
+    </div>
+    <div class="col-sm-4">
+      <img src="/pictures/logo_bms.png" style="width : 50%"/>
+    </div>
+    </div>
+  </div>
+</body>
+</html>

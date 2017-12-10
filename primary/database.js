@@ -20,7 +20,7 @@ module.exports = function(context){
     // callback = function(rows)
     db.getDocList = function(callback){
         // Liste tout les documents
-        base_db.all('SELECT * FROM documents;', callback);
+        base_db.all('SELECT id, title, type, thumbnail FROM documents;', callback);
     };
 
     // callback = function(error)
@@ -57,20 +57,18 @@ module.exports = function(context){
             'title = ?,' +
             'type = ?,' +
             'description = ?,' +
-            'date = ?,' +
             'thumbnail = ?,' +
             'WHERE id = ?;';
         base_db.exec(req, [
             data.title,
             data.type,
             data.description,
-            data.date,
             data.thumb ? data.thumb.path : data.old_thumb,
             data.id
         ], callback);
     };
-    db.checkPassword = function(password, callback){
-        base_db.get('SELECT hash FROM password;', function(err, row){
+    db.checkPassword = function(login, password, callback){
+        base_db.get('SELECT hash FROM password WHERE login = ?;', [login], function(err, row){
             if(err){
                 callback(false);
             } else {
@@ -84,5 +82,20 @@ module.exports = function(context){
             }
         });
     };
+
+    db.setPassword = function(login, password){
+        crypto.hash(password, function(err, hash){
+            if(err){
+                context.log.error(err);
+            } else {
+                base_db.exec('INSERT INTO password (login, hash) VALUES (?, ?);', [login, hash], function(err){
+                    if(err){
+                        context.log.error(err);
+                    }
+                });
+            }
+        });
+    };
+
     return db;
 };

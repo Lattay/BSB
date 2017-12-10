@@ -38,7 +38,8 @@ cat <<EOF | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@LPO
         "secret" : "14feab574fcec7ddf15935e7bd19c12345aa5c6b80fe44b1ef344d8e14645ec5",
         "resave" : false,
         "saveUninitialized" : true
-    }
+    },
+    "admin_password" : "admin"
 }
 EOF
 

@@ -16,19 +16,29 @@
 </div>
   
 <div class="container">
-  <div class="row" id="first_row">
-    <div class="col-sm-6">
-        <img class="big-thumb" src="/thumbnails/alicia.jpg">
-        </img>
-    </div>
-    <div class="col-sm-6">
-        <h3>Mon titre</h3><br/>
-        <p>Type de contenu : Album</p><br/>
-        <p>Date d'ajout : 11/16/17</p><br/>
-        <p>Description : Album de music electro pop d'une très jolie black</p><br/>
-    </div>
+  <% if(admin){ %>
+    <a href="/admin/document/new" class="btn">Ajouter un document</a>
+  <% } %>
+  <div class="row" id="main_row">
+    <% for(var i in rows){%>
+      <div id="item_<%= rows[i].id %>" class="col-sm-3 item">
+        <% if(admin){ %>
+          <a href="/admin/document/<%= rows[i].id %>">
+        <% } else { %>
+          <a href="/document/<%= rows[i].id %>">
+        <% } %>
+            <img class="thumb img-rounded" src="<%= rows[i].thumbnail %>"></img>
+            <div class="well">
+              <%= rows[i].title %>
+            </div>
+          </a>
+        <% if(admin){ %>
+          <input type=button onclick="delete(<%= rows[i].id %>)" class="btn">Supprimer</input>
+        <% } %>
+      </div>
+    <% } %>
+
   </div>
-  <a href="/thumbnails/alicia.jpg" download class="btn">Télécharger</a>
 </div>
 
 <div class="panel-footer footer text-center">
@@ -45,4 +55,12 @@
     </div>
   </div>
 </body>
+<% if(admin){ %>
+<script>
+function delete(id){
+    $.ajax('/admin/rm/' + id.toString(), {'method' : 'DELETE'});
+    $('item_' + id.toString()).remove();
+}
+</script>
+<% } %>
 </html>

@@ -16,9 +16,16 @@
 </div>
   
 <div class="container">
-  <div class="row" id="main_row">
-    Formulaire login
-  </div>
+  <form action="/admin/login" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="login">Nom d'utilisateur</label>
+      <input name="login" type="input" class="form-control" id="login"></input>
+    </div> 
+    <div class="form-group">
+      <label for="pwd">Mot de passe administrateur</label>
+      <input name="password" type="password" class="form-control" id="pwd"></input>
+    </div>
+  </form>
 </div>
 
 </body>

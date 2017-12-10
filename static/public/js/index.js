@@ -16,9 +16,12 @@ function showDoc(name){
 /* eslint-enable no-unused-vars */
 
 const document_html = '\
-<div class="col-sm-4" onclick="showDoc(%id);">\
-    <img src="%thumbnail">aperçu de %title</img>\
-    <h3>%title</h3>\
+<div class="col-sm-3 item">\
+    <a href="/document/%id"
+        <img class="thumb img-rounded" src="/thumbnails/these.png">aperçu de %title</img>\
+        <div class="well">\
+            %title\
+        </div>\
 </div>';
 
 function buildDocList(){

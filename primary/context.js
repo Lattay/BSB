@@ -16,6 +16,7 @@ module.exports = function(config_file){
     
     ctx.private_root = path.join(ctx.root_path, '/static/private');
     ctx.public_root = path.join(ctx.root_path, '/static/public');
+    ctx.views_path = path.join(ctx.root_path, '/views');
     ctx.database_path = path.join(ctx.root_path, ctx.database);
 
     ctx.no_thumb_path = path.join(ctx.public_root, 'no_thumb.png');
