@@ -30,6 +30,7 @@
           <div class="form-group">
             <label for="doc">Choisir une autre miniature</label>
             <input class="form-control" id="doc" name="thumbnail" type="file"></input>
+            <input hidden name="old_thumb" type="text" value="<%= thumbnail %>"></input>
           </div>
       </div>
       <div class="col-sm-6">
@@ -46,6 +47,7 @@
           <textarea id="desc" name="description" class="form-control" value="<%=  description %>"></textarea>
         </div>
       </div>
+      <input type="submit" class="btn" value="Envoyer"></input>
     </form>
   </div>
 </div>

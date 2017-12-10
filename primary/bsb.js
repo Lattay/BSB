@@ -37,14 +37,17 @@ module.exports = function(ctx){
     // Partie privée
     const body_parser = multer(ctx.upload_conf).fields([{ 'name' : 'thumbnail', 'maxCount' : 1}, { 'name' : 'document', 'maxCount' : 1}]);
     const admin = require('./admin')(ctx);
-    app.get('/admin/login', body_parser, admin.login);
+
+    app.post('/admin/login', body_parser, admin.login);
+
+    app.get('/admin/logins', admin.authorise('/login.html'), admin.login_list);
 
     app.delete('/admin/rm/:id', admin.authorise('/login.html'), admin.remove);
     app.post('/admin/add', body_parser, admin.authorise('/login.html'), admin.add);
     app.post('/admin/mod', body_parser, admin.authorise('/login.html'), admin.modify);
 
 
-    app.get('/admin', function(req, res){
+    app.get('/admin', admin.authorise('/login.html'), function(req, res){
         ctx.database.getDocList(function(err, docs){
             if(err){
                 res.status(500).send('Internal Error');
@@ -55,7 +58,7 @@ module.exports = function(ctx){
     });
 
     app.get('/admin/document/:id', function(req, res){
-        // renvoie au format json la liste des documents
+        // Affiche la page de modification d'un document
         if(req.params.id == 'new'){
             res.render('admin_document', {
                 'new' : true,
@@ -76,9 +79,6 @@ module.exports = function(ctx){
             });
         }
     });
-
-    app.use('/admin/*', admin.authorise('/login.html'), serveStatic(ctx.private_root, ctx.default_static_options));
-    // connexion, interface admin
 
     app.use(serveStatic(ctx.public_root, ctx.default_static_options));
     app.listen(ctx.port, ctx.url, function(){

@@ -4,8 +4,14 @@ CREATE TABLE documents (
     title TEXT,
     description TEXT,
     type TEXT,
-    date INTEGER,
+    date TEXT,
     thumbnail TEXT,
     path TEXT
 );
 
+DROP TABLE IF EXISTS password;
+CREATE TABLE password (
+    id ROWID,
+    login UNIQ,
+    password TEXT
+);

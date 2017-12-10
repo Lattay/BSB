@@ -21,9 +21,42 @@ module.exports = function(context){
         context.database.checkPassword(req.body.login, req.body.password, function(passok){
             if(passok){
                 req.session.logged = true;
-                res.send('ok');
+                res.redirect('/admin');
             } else {
-                res.send('error');
+                res.redirect('/login.html');
+            }
+        });
+    };
+
+    admin.login_list = function(req, res){
+        context.database.getLogins(function(err, logins){
+            if(err){
+                context.log.error(err);
+                res.status(500).send('Une erreur est survenue.');
+            } else {
+                res.render('logins', { 'logins' : logins});
+            }
+        });
+    };
+
+    admin.add_login = function(req, res){
+        context.database.setPassword(req.body.login, req.body.password, function(err){
+            if(err){
+                context.log.error(err);
+                res.status(500).send('Error adding a login.');
+            } else {
+                res.send('OK');
+            }
+        });
+    };
+
+    admin.del_login = function(req, res){
+        context.database.delPassword(req.params.i, function(err){
+            if(err){
+                context.log.error(err);
+                res.status(500).send('Error when deleting a login.');
+            } else {
+                res.send('OK');
             }
         });
     };
@@ -44,7 +77,7 @@ module.exports = function(context){
                 context.log.error(err);
                 res.send('err');
             } else {
-                res.send('ok');
+                res.redirect('/admin');
             }
         });
     };
@@ -57,7 +90,7 @@ module.exports = function(context){
             context.database.delDoc(id, function(err){
                 if(err){
                     context.log.error(err);
-                    res.send('err');
+                    res.status(500).send('Une erreur est survenue.');
                 } else {
                     res.send('ok');
                 }
@@ -72,12 +105,12 @@ module.exports = function(context){
         context.database.modDoc(data, function(err){
             if(err){
                 context.log.error(err);
-                res.send('err');
+                res.status(500).send('Une erreur est survenue.');
             } else {
                 if(data.thumb){ // si on met à jour une miniature on supprime l'ancienne
                     fs.unlink(data.old_thumb);
                 }
-                res.send('ok');
+                res.redirect('/admin');
             }
         });
     };

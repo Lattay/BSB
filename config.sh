@@ -18,9 +18,10 @@ ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
 npm install --build-from-source
 
 ask "Initialiser la base de données ? [o/N]" "N" INIT_DB
-if [[ $INIT_DB != "O" -a $INIT_DB != "o" ]]
+if [ "$INIT_DB" != "O" -a "$INIT_DB" != "o" ]
 then
     sqlite bsb.sqlite < init_db.sql
+    node init_password.js
 fi
 
 # Génération de la configuration
@@ -38,8 +39,7 @@ cat <<EOF | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@LPO
         "secret" : "14feab574fcec7ddf15935e7bd19c12345aa5c6b80fe44b1ef344d8e14645ec5",
         "resave" : false,
         "saveUninitialized" : true
-    },
-    "admin_password" : "admin"
+    }
 }
 EOF
 

@@ -14,8 +14,7 @@ module.exports = function(config_file){
         throw err;
     }
     
-    ctx.private_root = path.join(ctx.root_path, '/static/private');
-    ctx.public_root = path.join(ctx.root_path, '/static/public');
+    ctx.public_root = path.join(ctx.root_path, '/static');
     ctx.views_path = path.join(ctx.root_path, '/views');
     ctx.database_path = path.join(ctx.root_path, ctx.database);
 

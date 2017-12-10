@@ -10,6 +10,9 @@ module.exports = function(context){
     var db = new Object();
     var base_db = new sql.Database(context.database_path);
 
+    db.close = function(){
+        base_db.close();
+    };
 
     // callback = function(first_row)
     db.getDoc = function(id, callback){
@@ -67,6 +70,11 @@ module.exports = function(context){
             data.id
         ], callback);
     };
+
+    db.getLogins = function(callback){
+        base_db.all('SELECT id, login FROM password;', callback);
+    };
+
     db.checkPassword = function(login, password, callback){
         base_db.get('SELECT hash FROM password WHERE login = ?;', [login], function(err, row){
             if(err){
@@ -83,18 +91,20 @@ module.exports = function(context){
         });
     };
 
-    db.setPassword = function(login, password){
+    db.setPassword = function(login, password, callback){
         crypto.hash(password, function(err, hash){
             if(err){
-                context.log.error(err);
+                callback(err);
             } else {
                 base_db.exec('INSERT INTO password (login, hash) VALUES (?, ?);', [login, hash], function(err){
-                    if(err){
-                        context.log.error(err);
-                    }
+                    callback(err);
                 });
             }
         });
+    };
+
+    db.delPassword = function(id, callback){
+        base_db.exec('DELETE FROM password WHERE id = ?;', [id], callback);
     };
 
     return db;
