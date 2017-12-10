@@ -1,12 +1,40 @@
+@font-face {
+ font-family: "Tahoma";
+ src: url("/fonts/Tahoma.ttf");
+}
+
 body {
     background : #f0f0f0;
+    font-family : Tahoma;
 }
-.jumbotron {
-    background : #c3c3c3;
+
+.btn {
+    background : #aa0d3a;
+    color : #ffffff;
+}
+
+.big-thumb {
+    max-height: 300px;
+    padding : 10px;
+    margin : 10px;
 }
 
 .thumb {
     max-height: 200px;
     padding : 10px;
     margin : 10px;
+}
+
+.bandeau {
+    background : #aa0d3a;
+    color : #ffffff;
+    padding : 30px 0px 30px 0px;
+}
+
+.item {
+    text-align : center;
+}
+
+.footer {
+    margin : 30px 0 0 0;
 }
