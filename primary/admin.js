@@ -70,18 +70,18 @@ module.exports = function(context){
     admin.add = function(req, res){
         var data = req.body;
         if(!req.files['document'][0]){
-            res.send('nofile');
+            res.send('Pas de fichier.');
             return;
         }
         data.doc = myUtils.path_to_url(req.files['document'][0].path);
-        data.thumb = req.files['thumbnail'][0] ? myUtils.path_to_url(req.files['thumbnail'][0].path) : context.no_thumb;
+        data.thumb = req.files['thumbnail'] && req.files['thumbnail'][0] ? myUtils.path_to_url(req.files['thumbnail'][0].path) : context.no_thumb;
 
         var d = new Date();
         data.date = d.getDate().toString() + '/' + (d.getMonth() + 1).toString() + '/' + d.getFullYear().toString();
         context.database.addDoc(data, function(err){
             if(err){
                 context.log.error(err);
-                res.send('err');
+                res.send('Erreure interne.');
             } else {
                 res.redirect('/admin');
             }
