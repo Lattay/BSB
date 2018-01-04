@@ -99,7 +99,7 @@ module.exports = function(context){
                 res.status(404).send('Aucun document a supprimer.');
             } else {
                 fs.unlink(myUtils.url_to_path(row.path));  // on supprime les fichiers associé au document
-                if(row.thumbnail){
+                if(row.thumbnail != context.no_thumb){
                     fs.unlink(myUtils.url_to_path(row.thumbnail));
                 }
                 context.database.delDoc(id, function(err){
