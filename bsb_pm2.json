@@ -1,0 +1,12 @@
+{
+    "apps" : [{
+        "name" : "bsb",
+        "script" : "./init_password.js"
+    }],
+    "deploy" : {
+        "production" : {
+            "user" : "www",
+            "host" : ["localhost"]
+        }
+    }
+}
