@@ -26,13 +26,6 @@ fi
 # Mise à jour des modules node.js
 npm install --build-from-source
 
-if [ "$INIT_DB" == "O" -o "$INIT_DB" == "o" ]
-then
-    echo Initialisation des bases de données.
-    cat init_db.sql | sqlite3 bsb.sqlite
-    echo Initialisation d\'un mot de passe administrateur.
-    node init_password.js
-fi
 
 # Génération de la configuration
 cat <<EOF | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@LPORT?$LPORT?" > $ROOT_PATH/bsb.json
@@ -54,3 +47,10 @@ cat <<EOF | sed "s?@LURL?$LURL?" | sed "s?@ROOT_PATH?$ROOT_PATH?g" | sed "s?@LPO
 }
 EOF
 
+if [ "$INIT_DB" == "O" -o "$INIT_DB" == "o" ]
+then
+    echo Initialisation des bases de données.
+    cat init_db.sql | sqlite3 bsb.sqlite
+    echo Initialisation d\'un mot de passe administrateur.
+    node init_password.js
+fi
