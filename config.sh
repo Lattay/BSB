@@ -10,14 +10,22 @@ ask(){
     fi
 }
 
-ask "URL d'écoute ?" "localhost" LURL
-ask "Port d'écoute ?" "8080" LPORT
-ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
+if [ "$1" != "prod" ]
+then
+    ask "URL d'écoute ?" "localhost" LURL
+    ask "Port d'écoute ?" "8080" LPORT
+    ask "Chemin vers la racine ?" "$(pwd)" ROOT_PATH
+    ask "Initialiser la base de données ? [o/N]" "N" INIT_DB
+else
+    LURL=localhost
+    LPORT=8080
+    ROOT_PATH=$(pwd)
+    INIT_DB="o"
+fi
 
 # Mise à jour des modules node.js
 npm install --build-from-source
 
-ask "Initialiser la base de données ? [o/N]" "N" INIT_DB
 if [ "$INIT_DB" == "O" -o "$INIT_DB" == "o" ]
 then
     echo Initialisation des bases de données.
