@@ -68,7 +68,7 @@ module.exports = function(ctx){
     app.delete('/admin/rm/:id', admin.authorise('/login.html'), admin.remove);
     app.post('/admin/add', body_parser, admin.authorise('/login.html'), admin.add);
     app.post('/admin/mod', body_parser, admin.authorise('/login.html'), admin.modify);
-
+    app.get('/admin/halt', admin.authorise('/login.html'), admin.halt);
 
     app.get('/admin', admin.authorise('/login.html'), function(req, res){
         ctx.database.getDocList(function(err, docs){

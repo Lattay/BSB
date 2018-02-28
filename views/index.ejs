@@ -2,14 +2,17 @@
 <div class="container">
   <% if(admin){ %>
     <div class="row row-btn" id="button_row">
-      <div class="col-sm-4 item">
+      <div class="col-sm-3 item">
         <a href="/admin/document/new" class="btn">Ajouter un document</a>
       </div>
-      <div class="col-sm-4 item">
+      <div class="col-sm-3 item">
         <a href="/admin/logins" class="btn">Liste des utilisateurs</a>
       </div>
-      <div class="col-sm-4 item">
+      <div class="col-sm-3 item">
         <a href="/admin/logout" class="btn">Se déconnecter</a>
+      </div>
+      <div class="col-sm-3 item">
+        <a href="/admin/halt" class="btn">Eteindre le système</a>
       </div>
     </div>
   <% } %>

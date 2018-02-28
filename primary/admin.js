@@ -132,7 +132,7 @@ module.exports = function(context){
         });
     };
     
-    admin.modify = function(req, res){
+    admin.halt = function(req, res){
         res.send('Extinction...');
         shell_exec('/sbin/shutdown -h now');
         process.exit();
