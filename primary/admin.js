@@ -2,6 +2,7 @@
  * Définie les callback utilisé pour les actions d'administration
  */
 const fs = require('fs');
+const shell_exec = require('child_process').exec;
 
 module.exports = function(context){
     const myUtils= require('./utils')(context);
@@ -130,6 +131,11 @@ module.exports = function(context){
             }
         });
     };
-
+    
+    admin.modify = function(req, res){
+        res.send('Extinction...');
+        shell_exec('/sbin/shutdown -h now');
+        process.exit();
+    };
     return admin;
 };
